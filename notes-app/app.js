@@ -55,15 +55,22 @@ yargs.command({
     command: 'list',
     describe: 'list the notes',
     handler() {
-        log('listing all notes')
+        notes.listNotes()    
     }
 })
 // create the read command
 yargs.command({ 
     command: 'read',
     describe: 'read a note',
-    handler() {
-        log('reading a note')
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        notes.readNote(argv.title)
     }
 })
 
