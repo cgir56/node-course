@@ -1,8 +1,8 @@
 // loading modules
-const getNotes = require('./notes.js');
-const validator = require('validator');
-const chalk = require('chalk');
-const yargs = require('yargs');
+const notes = require('./notes.js')
+const validator = require('validator')
+const chalk = require('chalk')
+const yargs = require('yargs')
 
 
 // define a shortcut for console.log
@@ -17,6 +17,7 @@ const log = console.log;
 // setup yargs
 
 yargs.version('1.0.1')
+// log (yargs.argv)
 
 // create the add command
 yargs.command({
@@ -34,17 +35,23 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: function(argv) {
-        log('Title: ' + argv.title)
-        log ('Body: ' + argv.body)
+    handler: function (argv) {
+        notes.addNote(argv.title, argv.body)
     }
 })
-// create the read command
+// create the remove command
 yargs.command({
-    command: 'read',
-    describe: 'read a note',
-    handler: function(){
-        log('read a note')
+    command: 'remove',
+    describe: 'remove a note',
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function(argv){
+        notes.removeNote(argv.title)
     }
 })
 // create the list command
@@ -52,7 +59,7 @@ yargs.command({
     command: 'list',
     describe: 'list the notes',
     handler: function(){
-        log('listing the notes')
+        log('listing all notes')
     }
 })
 // create the read command
@@ -64,10 +71,4 @@ yargs.command({
     }
 })
 
-log('parsing')
-
-
-
-// print yargs argv
-
-log(yargs.argv)
+yargs.parse()
