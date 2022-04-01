@@ -2,11 +2,9 @@ const fs = require('fs')
 const chalk = require('chalk')
 const addNote = (title, body) => {
     const notes = loadNotes()
-    // check for duplicate note by the title
-    // const duplicateNotes = notes.filter(function(note){
-    //     return note.title === title
-    // })
-    // const duplicateNotes = notes.filter((note) => note.title === title)
+   
+    debugger
+
     const duplicateNote = notes.find((note) => note.title === title)
     if (!duplicateNote) {
         // add the note
